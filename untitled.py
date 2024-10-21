@@ -1,4 +1,5 @@
 import os
+import shutil
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
@@ -189,9 +190,21 @@ def lookup_records_last():
     search_button = Button(search, text = "Search Records", command = search_records_last)
     search_button.pack(padx = 20, pady = 20)
 
+def create_backup():
+    from datetime import datetime
+    i = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
+    os.makedirs(os.path.join(os.getcwd(),"backups"),exist_ok = True)
+    src = os.path.join(os.getcwd(),"database","CRM.db")
+    dst = os.path.join(os.getcwd(),"backups",f"CRM_backup_{i}.db")
+    shutil.copy2(src,dst)
+    messagebox.showinfo("Attention!","Backup Created Successfully")
+
 #Search menu
 search_menu = Menu(my_menu, tearoff = 0)
+bkup_menu = Menu(my_menu, tearoff = 0)
 my_menu.add_cascade(label = "Search", menu = search_menu)
+my_menu.add_cascade(label = "Backup", menu = bkup_menu)
+bkup_menu.add_command(label = "Create Backup", command = create_backup)
 search_menu.add_command(label = "By ID",command = lookup_records_id)
 search_menu.add_separator()
 search_menu.add_command(label = "By First Name",command = lookup_records_first)
