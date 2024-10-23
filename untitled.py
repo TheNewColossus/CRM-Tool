@@ -11,7 +11,6 @@ db_path=os.path.join(os.getcwd(),"database","CRM.db")
 root = Tk()
 root.geometry("1000x600")
 root.title("CRM TOOL")
-root.iconbitmap(os.path.join(os.getcwd(),"icon","Untitled.ico"))
 my_menu = Menu(root)
 root.config(menu = my_menu)
 
